@@ -103,5 +103,69 @@ var sampleApiResponse = [
 ];
 
 $(document).ready(function () {
+    var all = $("#all");
+    var online = $("#online");
+    var offline = $("#offline");
 
+    all.click(function () {
+        all.toggleHeader();
+    });
+
+    online.click(function () {
+        online.toggleHeader();
+
+    });
+
+    offline.click(function () {
+        offline.toggleHeader();
+
+    });
+
+
+    $.fn.toggleHeader = function () {
+        switch(this){
+            case all:
+                all.css({
+                    color: "#ffffff",
+                    backgroundColor:"#fa0060"
+                });
+                online.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                offline.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                break;
+            case online:
+                online.css({
+                    color: "#ffffff",
+                    backgroundColor:"#fa0060"
+                });
+                all.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                offline.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                break;
+            case offline:
+                offline.css({
+                    color: "#ffffff",
+                    backgroundColor:"#fa0060"
+                });
+                all.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                online.css({
+                    color: "#000",
+                    backgroundColor:"mediumspringgreen"
+                });
+                break;
+        }
+    }
 });
