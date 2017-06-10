@@ -108,6 +108,7 @@ $(document).ready(function () {
     var all = $("#all");
     var online = $("#online");
     var offline = $("#offline");
+    var listGroup = $(".list-group");
 
     for (var i = 0; i < channels.length; i++) {
         const temp = i;
@@ -129,34 +130,50 @@ $(document).ready(function () {
 
             $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + channels[temp] + "?callback=?", function (data) {
 
-                var url = data.url !== undefined ? data.url : "https://www.twitch.tv/"+channels[temp];
+                var url = data.url !== undefined ? data.url : "https://www.twitch.tv/" + channels[temp];
                 var logo = data.logo !== undefined ? data.logo : "css/empty.jpg";
                 var name = data.display_name !== null ? data.display_name : channels[temp];
                 var description = status === "online" ? " -- " + data.status : "";
 
-                var html = '<div class="list-group-item text-center row '+ status +'"><div class="col-2"><img src="' + logo +
+                var html = '<div class="list-group-item text-center row ' + status + '"><div class="col-2"><img src="' + logo +
                     '" class="logo"></div><div class="col-4"><a href="' + url +
                     '" target="_blank">' + name +
                     '</a></div><div class="col-6"><span>' + game + description +
                     '</span></div></div>';
 
-                $(".list-group").append(html);
+                status === "online" ? listGroup.prepend(html) : listGroup.append(html);
             });
 
         });
     }
     all.click(function () {
         all.toggleHeader();
+        listGroup.children("div").each(function () {
+            $(this).css("display", "");
+        });
     });
 
     online.click(function () {
         online.toggleHeader();
+        listGroup.children("div").each(function () {
+             if($(this).hasClass("online")){
+                 $(this).css("display", "");
+             } else {
+                 $(this).css("display", "none");
+             }
+        });
 
     });
 
     offline.click(function () {
         offline.toggleHeader();
-
+        listGroup.children("div").each(function () {
+            if($(this).hasClass("offline")){
+                $(this).css("display", "");
+            } else {
+                $(this).css("display", "none");
+            }
+        });
     });
 
 
@@ -166,19 +183,25 @@ $(document).ready(function () {
                 all.addClass("active");
                 all.removeClass("inactive");
                 online.addClass("inactive");
+                online.removeClass("active");
                 offline.addClass("inactive");
+                offline.removeClass("active");
                 break;
             case online:
                 online.addClass("active");
                 online.removeClass("inactive");
                 all.addClass("inactive");
+                all.removeClass("active");
                 offline.addClass("inactive");
+                offline.removeClass("active");
                 break;
             case offline:
                 offline.addClass("active");
                 offline.removeClass("inactive");
                 all.addClass("inactive");
+                all.removeClass("active");
                 online.addClass("inactive");
+                online.removeClass("active");
                 break;
         }
     }
