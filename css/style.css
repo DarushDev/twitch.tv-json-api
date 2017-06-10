@@ -22,12 +22,11 @@ html, body {
 }
 
 .list-group-item:hover {
-    background-color: bisque;
+    background-color: thistle;
 }
 
 #all {
     border-right: solid white;
-    background-color: #fa0060;
     color: white;
 }
 
@@ -47,5 +46,23 @@ html, body {
 
 #offline:hover {
     background-color: thistle;
+    cursor: pointer;
+}
+
+.online {
+    background-color: #e5f2e5;
+}
+
+.offline {
+    background-color: #ffe5e5;
+}
+
+.active {
+    color: #fff;
+    background-color: #fa0060;
+}
+
+.inactive {
+    background-color: mediumspringgreen;
     cursor: pointer;
 }

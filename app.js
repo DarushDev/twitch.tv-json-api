@@ -134,7 +134,7 @@ $(document).ready(function () {
                 var name = data.display_name !== null ? data.display_name : channels[temp];
                 var description = status === "online" ? " -- " + data.status : "";
 
-                var html = '<div class="list-group-item text-center row"><div class="col-2"><img src="' + logo +
+                var html = '<div class="list-group-item text-center row '+ status +'"><div class="col-2"><img src="' + logo +
                     '" class="logo"></div><div class="col-4"><a href="' + url +
                     '" target="_blank">' + name +
                     '</a></div><div class="col-6"><span>' + game + description +
@@ -163,46 +163,22 @@ $(document).ready(function () {
     $.fn.toggleHeader = function () {
         switch (this) {
             case all:
-                all.css({
-                    color: "#ffffff",
-                    backgroundColor: "#fa0060"
-                });
-                online.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
-                offline.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
+                all.addClass("active");
+                all.removeClass("inactive");
+                online.addClass("inactive");
+                offline.addClass("inactive");
                 break;
             case online:
-                online.css({
-                    color: "#ffffff",
-                    backgroundColor: "#fa0060"
-                });
-                all.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
-                offline.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
+                online.addClass("active");
+                online.removeClass("inactive");
+                all.addClass("inactive");
+                offline.addClass("inactive");
                 break;
             case offline:
-                offline.css({
-                    color: "#ffffff",
-                    backgroundColor: "#fa0060"
-                });
-                all.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
-                online.css({
-                    color: "#000",
-                    backgroundColor: "mediumspringgreen"
-                });
+                offline.addClass("active");
+                offline.removeClass("inactive");
+                all.addClass("inactive");
+                online.addClass("inactive");
                 break;
         }
     }
