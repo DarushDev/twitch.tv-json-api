@@ -102,11 +102,49 @@ var sampleApiResponse = [
     }
 ];
 
+var channels = ["FreeCodeCamp", "OgamingSC2", "ESL_SC2", "noobs2ninjas"];
+
 $(document).ready(function () {
     var all = $("#all");
     var online = $("#online");
     var offline = $("#offline");
 
+    for (var i = 0; i < channels.length; i++) {
+        const temp = i;
+        $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + channels[i] + "?callback=?", function (data) {
+            var status;
+            var game;
+            console.log(data);
+
+            if (data.stream === null) {
+                status = "offline";
+                game = "Offline";
+            } else if (data.stream === undefined) {
+                status = "dead";
+                game = "Account Closed"
+            } else {
+                status = "online";
+                game = data.stream.game;
+            }
+
+            $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + channels[temp] + "?callback=?", function (data) {
+
+                var url = data.url !== undefined ? data.url : "https://www.twitch.tv/"+channels[temp];
+                var logo = data.logo !== undefined ? data.logo : "css/empty.jpg";
+                var name = data.display_name !== null ? data.display_name : channels[temp];
+                var description = status === "online" ? " -- " + data.status : "";
+
+                var html = '<div class="list-group-item text-center row"><div class="col-2"><img src="' + logo +
+                    '" class="logo"></div><div class="col-4"><a href="' + url +
+                    '" target="_blank">' + name +
+                    '</a></div><div class="col-6"><span>' + game + description +
+                    '</span></div></div>';
+
+                $(".list-group").append(html);
+            });
+
+        });
+    }
     all.click(function () {
         all.toggleHeader();
     });
@@ -123,47 +161,47 @@ $(document).ready(function () {
 
 
     $.fn.toggleHeader = function () {
-        switch(this){
+        switch (this) {
             case all:
                 all.css({
                     color: "#ffffff",
-                    backgroundColor:"#fa0060"
+                    backgroundColor: "#fa0060"
                 });
                 online.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 offline.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 break;
             case online:
                 online.css({
                     color: "#ffffff",
-                    backgroundColor:"#fa0060"
+                    backgroundColor: "#fa0060"
                 });
                 all.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 offline.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 break;
             case offline:
                 offline.css({
                     color: "#ffffff",
-                    backgroundColor:"#fa0060"
+                    backgroundColor: "#fa0060"
                 });
                 all.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 online.css({
                     color: "#000",
-                    backgroundColor:"mediumspringgreen"
+                    backgroundColor: "mediumspringgreen"
                 });
                 break;
         }
