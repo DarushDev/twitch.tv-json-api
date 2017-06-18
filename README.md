@@ -1,2 +1,4 @@
 # twitch.tv-json-api
-Twitch.tv JSON API
+Using Twitch.tv JSON API view the online and offline channels.
+
+![Image](../master/img/screenshot1.png)
